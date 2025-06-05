@@ -8,12 +8,13 @@ def main():
     """
 
     with open("gamedata.json", encoding="UTF-8") as f:
-#        gameinfo = [GameInfo(**json.loads(r)) for r in f]
-        jsonobj = [json.loads(r) for r in f]
+        jsonobj = [json.loads(row) for row in f]
 
     for p in jsonobj:
         gameinfo = GameInfo.from_dict(p)
         print(gameinfo)
+        for player in gameinfo._PerPlayer._player: # type: ignore # pylint: disable=protected-access
+            print(player._username)                # type: ignore # pylint: disable=protected-access
 
 if __name__ == "__main__":
     main()
